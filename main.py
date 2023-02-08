@@ -21,7 +21,7 @@ def walkingAnimation(frame, player):
 
 def  walking(playerRect, playerSurf, speed, frame):
     userInput = pygame.key.get_pressed()
-    maxSpeed=10
+    maxSpeed=11
     acceleration = 1
     braking = 1
     if userInput[pygame.K_LEFT]: #LEFT
