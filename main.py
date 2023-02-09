@@ -11,24 +11,27 @@ screen = pygame.display.set_mode(resolution)
 
 player_surf = pygame.image.load('grap/player/player.png').convert_alpha()
 player_rect = player_surf.get_rect(center=(resolution[0]/2,resolution[1]/2))
+armGun_surf = pygame.image.load('grap/armGun.png').convert_alpha()
+armGun_rect = armGun_surf.get_rect(center=(resolution[0]/2+2,resolution[1]/2+2))
 
 def walkingAnimation(frame, player):
-    if frame%2==1:
+    if frame%20>10:
         player = pygame.image.load('grap/player/player1.png').convert_alpha()
     else:
         player = pygame.image.load('grap/player/player2.png').convert_alpha()
     return player
 
-def  walking(playerRect, playerSurf, speed, frame):
+def  walking(playerRect, playerSurf, armGunRect, speed, frame):
     userInput = pygame.key.get_pressed()
-    maxSpeed=10
-    acceleration = 1
-    braking = 1
+    maxSpeed=3
+    acceleration = 0.2
+    braking = 0.2
     if userInput[pygame.K_LEFT]: #LEFT
         if speed[0] <= maxSpeed:
             speed[0] += acceleration
         playerSurf = walkingAnimation(frame, playerSurf)
         playerRect.x -= playerSpeed[0]
+        armGunRect.x -= playerSpeed[0]
     else:
         if speed[0] >= 1:
             speed[0] -= braking
@@ -37,6 +40,7 @@ def  walking(playerRect, playerSurf, speed, frame):
             speed[1] += acceleration
         playerSurf = walkingAnimation(frame, playerSurf)
         playerRect.x += playerSpeed[1]
+        armGunRect.x += playerSpeed[1]
     else:
         if speed[1] >= 1:
             speed[1] -= braking
@@ -45,6 +49,7 @@ def  walking(playerRect, playerSurf, speed, frame):
             speed[2] += acceleration
         playerSurf = walkingAnimation(frame, playerSurf)
         playerRect.y -= playerSpeed[2]
+        armGunRect.y -= playerSpeed[2]
     else:
         if speed[2] >= 1:
             speed[2] -= braking
@@ -53,6 +58,7 @@ def  walking(playerRect, playerSurf, speed, frame):
             speed[3] += acceleration
         playerSurf = walkingAnimation(frame, playerSurf)
         playerRect.y += playerSpeed[3]
+        armGunRect.y += playerSpeed[3]
     else:
         if speed[3] >= 1:
             speed[3] -= braking
@@ -72,9 +78,10 @@ while True:
             player_surf = pygame.image.load('grap/player/player.png').convert_alpha()
 
     
-    player_rect, player_surf = walking(player_rect,player_surf,playerSpeed,frames)
+    player_rect, player_surf = walking(player_rect,player_surf,armGun_rect,playerSpeed,frames)
         
     screen.blit(player_surf,player_rect)
+    screen.blit(armGun_surf,armGun_rect)
     if frames>=60:
         frames=0
     else:
