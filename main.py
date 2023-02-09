@@ -70,9 +70,9 @@ def rotateGun(armGunSurf,armGunRect):
     mX, mY = pygame.mouse.get_pos()
     rX, rY = abs(mX - armGunRect.x), abs(mY-armGunRect.y)
     angle = int(math.degrees(math.atan(rY/rX)))
-    print(angle)
+    #print(angle)
     #armGunSurf = pygame.transform.rotate(armGunSurf,angle)
-    return pygame.transform.rotate(armGunSurf,45)
+    return armGunSurf
 frames=0
 playerSpeed=[0,0,0,0]
 while True:
