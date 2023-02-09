@@ -64,7 +64,7 @@ def  walking(playerRect, playerSurf, armGunRect, speed, frame):
         if speed[3] >= 1:
             speed[3] -= braking
 
-    return playerRect,playerSurf
+    return playerRect,playerSurf,armGunRect
 
 def rotateGun(armGunSurf,armGunRect):
     mX, mY = pygame.mouse.get_pos()
@@ -85,7 +85,7 @@ while True:
             player_surf = pygame.image.load('grap/player/player.png').convert_alpha()
 
     
-    player_rect, player_surf = walking(player_rect,player_surf,armGun_rect,playerSpeed,frames)
+    player_rect, player_surf, armGun_rect = walking(player_rect,player_surf,armGun_rect,playerSpeed,frames)
         
     #armGun_surf = pygame.transform.rotate(armGun_surf,90)
     armGun_surf = rotateGun(armGun_surf,armGun_rect)
