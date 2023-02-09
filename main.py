@@ -1,4 +1,5 @@
 import pygame
+import math
 from sys import exit
 
 pygame.init()
@@ -65,7 +66,13 @@ def  walking(playerRect, playerSurf, armGunRect, speed, frame):
 
     return playerRect,playerSurf
 
-
+def rotateGun(armGunSurf,armGunRect):
+    mX, mY = pygame.mouse.get_pos()
+    rX, rY = abs(mX - armGunRect.x), abs(mY-armGunRect.y)
+    angle = int(math.degrees(math.atan(rY/rX)))
+    print(angle)
+    #armGunSurf = pygame.transform.rotate(armGunSurf,angle)
+    return pygame.transform.rotate(armGunSurf,45)
 frames=0
 playerSpeed=[0,0,0,0]
 while True:
@@ -80,6 +87,8 @@ while True:
     
     player_rect, player_surf = walking(player_rect,player_surf,armGun_rect,playerSpeed,frames)
         
+    #armGun_surf = pygame.transform.rotate(armGun_surf,90)
+    armGun_surf = rotateGun(armGun_surf,armGun_rect)
     screen.blit(player_surf,player_rect)
     screen.blit(armGun_surf,armGun_rect)
     if frames>=60:
@@ -87,4 +96,4 @@ while True:
     else:
         frames+=1
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(10)
